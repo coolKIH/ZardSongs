@@ -36,15 +36,16 @@
         methods: {
             fetchLrcData: function (filename) {
                 var self = this;
-                this.$http.get('/zardsongs/data/'+filename)
+                this.$http.get('./data/'+filename)
                     .catch(function (err) {
-                        return self.$http.get('../data/'+filename);
+                        // Fallback to alternative relative path
+                        return self.$http.get('data/'+filename);
                     })
                     .then(function (lrcItems) {
                         return lrcItems.json();
                     })
                     .then(function (lrcItems) {
-                        this.lrcItems = this.lrcItems.concat(lrcItems);
+                        self.lrcItems = self.lrcItems.concat(lrcItems);
                     });
 
             },
