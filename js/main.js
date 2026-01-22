@@ -8,9 +8,10 @@
                 searchKey: '',
                 playingMusic: false,
                 songTitle: '',
-                songLink: 'https://haoyellow.cn/static/songs/ZARD - 二人の夏.mp3',
-                everLoadMore: false,
-                playStatus: 'Waiting..'
+                songLink: '',
+                playStatus: 'Loading..',
+                loadedDataHandler: null,
+                endedHandler: null
             }
         },
         computed: {
@@ -56,25 +57,40 @@
                 return '<span>' + str.slice(0, m.index) + '</span>' + this.splitLines(str.slice(m.index + m[0].length));
             },
             playMusic: function (songTitle, songLink) {
+                if (!songLink) {
+                    return;
+                }
                 var me = this;
-                this.playStatus = 'Waiting..';
+                this.playStatus = 'Loading..';
                 var mp = this.$refs.musicPlayer;
+                mp.pause();
+                
+                // Remove old event listeners if they exist
+                if (this.loadedDataHandler) {
+                    mp.removeEventListener('loadeddata', this.loadedDataHandler);
+                }
+                if (this.endedHandler) {
+                    mp.removeEventListener('ended', this.endedHandler);
+                }
+                
+                mp.src = songLink;
                 this.playingMusic = true;
                 this.songTitle = songTitle;
-                if (songLink) {
-                    mp.src = songLink;
-                } else {
-                    mp.src = 'https://haoyellow.cn/static/songs/ZARD - 二人の夏.mp3';
-                }
-                mp.pause();
+                
+                // Create new event handlers and store references
+                this.loadedDataHandler = function () {
+                    me.playStatus = 'Enjoying..'
+                };
+                this.endedHandler = function () {
+                    me.playingMusic = false;
+                };
+                
+                // Add event listeners
+                mp.addEventListener('loadeddata', this.loadedDataHandler);
+                mp.addEventListener('ended', this.endedHandler);
+                
                 mp.load();
                 mp.play();
-                mp.addEventListener('loadeddata', function () {
-                    me.playStatus = 'Enjoying..'
-                });
-                mp.addEventListener('ended', function () {
-                   me.playingMusic = false;
-                });
             },
             stopMusic: function () {
                 this.playingMusic = false;
@@ -82,10 +98,6 @@
             },
             loadMore: function () {
                 this.displayNum += 6;
-                if (!this.everLoadMore) {
-                    this.fetchLrcData('zard_lrc_1.json');
-                    this.everLoadMore = true;
-                }
             }
         }
     });

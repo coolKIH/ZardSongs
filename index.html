@@ -26,7 +26,7 @@
         <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/main.css?v=20170602020">
+        <link rel="stylesheet" href="css/main.css">
         <!--<script src="js/vendor/modernizr-2.8.3.min.js"></script>-->
     </head>
     <body class="h-100">
@@ -39,29 +39,41 @@
             <lrc></lrc>
             <footer class="d-flex justify-content-center align-items-center p-r z-10 m-0">
                 <section class="color-spink text-italic">
-                    <div class="text-center"><em>Zard Songs.</em></div>
-                    <em>感谢 <u><a href="http://tieba.baidu.com/p/300955295" target="_blank" class="color-spink">rcsking</a></u> 和 <u><a href="http://www.kiwi-musume.com/lyrics/zard/zard.html" target="_blank" class="color-spink">kiwi-musume</a></u> 提供内容.</em>
+                    <div class="text-center mb-2"><em>Zard Songs.</em></div>
+                    <em>感谢 <u><a href="http://tieba.baidu.com/p/300955295" target="_blank" class="color-spink">rcsking</a></u> 和 <u><a href="http://www.kiwi-musume.com/lyrics/zard/zard.html" target="_blank" class="color-spink">kiwi-musume</a></u> 分别提供歌词和图片（链接可能失效）</em>
                 </section></footer>
         </div>
 
         <template id="lrc-covers">
             <div class="p-r" id="lrc_page">
                 <header class="d-flex flex-wrap justify-content-between p-r align-items-start">
-                    <input v-model="searchKey" title="搜索歌名" placeholder="搜索.. 眠れない夜を抱いて" class="col-md-2 pure-box color-spink fs-80">
+                    <input v-model="searchKey" type="text" title="搜索歌名" placeholder="Search.." class="col-md-2 pure-box color-spink fs-80 mt-1">
                     <audio ref="musicPlayer" v-bind:src="songLink" style="display: none;">
                         Your browser does not support the <code>audio</code> element.
                     </audio>
-                    <div class="p-f tr fs-80 mr-2 mt-2 z-10" v-if="playingMusic">
-                        &#9834; <span>{{playStatus}}</span> <span class="color-spink text-uppercase">{{songTitle}}</span> <u class="cursor-pointer" v-on:click="stopMusic()">Stop</u>
+                    <div class="p-f tr fs-80 mr-2 mt-1 z-10" v-if="playingMusic">
+                        &#9834; <span>{{playStatus}}</span> 
+                        <span class="color-spink text-uppercase mx-1">{{songTitle}}</span> 
+                        <span class="cursor-pointer" title="Stop Music" v-on:click="stopMusic()">⏹</span>
                     </div>
                 </header>
-                <div class="text-center mt-4"><div class="color-spink d-inline-block p-2"><div class="text-left">『</div><div class="px-4 py-2 fs-80" style="letter-spacing: 3px;">欢迎来到Zard的演唱会!<br>请大家尽兴到最后～</div><div class="text-right">』</div></div></div>
-                <div class="text-center mt-2"><p class="color-spink fs-80" style="letter-spacing: 3px;">...</p></div>
-                <section id="lrcItems" class="mt-4 mb-2 p-2">
-                    <div class="d-flex flex-wrap mt-4 mb-3" v-for="item in displayItems">
+                <div class="text-center mt-5"><div class="color-spink d-inline-block p-2"><div class="text-left">『</div><div class="px-4 py-2 fs-80" style="letter-spacing: 3px;">欢迎来到Zard的演唱会!<br>请大家尽兴到最后～</div><div class="text-right">』</div></div></div>
+                <div class="text-center mt-3"><p class="color-spink fs-80 mb-0" style="letter-spacing: 3px;">...</p></div>
+                <section id="lrcItems" class="mt-5">
+                    <div class="d-flex flex-wrap mt-4 mb-5" v-for="item in displayItems">
                         <h5 class="text-center col-12 text-uppercase break-word song-title color-spink">
-                            <strong class="play-music has-skew p-r text-white pl-1 pr-1 mr-1 cursor-pointer" v-on:click="playMusic(item.title, item.song_link)">&#9834;</strong> <span>{{item.title}}</span>
+                            <strong class="play-music has-skew p-r text-white pl-1 pr-1 mr-1 cursor-pointer"
+                            v-bind:class="{ 'disabled': !item.song_link }"
+                            v-bind:title="item.song_link ? 'Click to play' : 'Not available to play yet'"
+                             v-on:click="playMusic(item.title, item.song_link)">&#9834;</strong> <span>{{item.title}}</span>
                         </h5>
+                        <div class="p-2 col-md-4">
+                            <div class="card h-100">
+                                <div class="card-block">
+                                    <pre class="card-text pre-wrap break-word" v-html="splitLines(item.lrc_zh)"></pre>
+                                </div>
+                            </div>
+                        </div>
                         <div class="p-2 col-md-4">
                             <div class="card h-100">
                                 <div class="card-block">
@@ -76,17 +88,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-2 col-md-4">
-                            <div class="card h-100">
-                                <div class="card-block">
-                                    <pre class="card-text pre-wrap break-word" v-html="splitLines(item.lrc_zh)"></pre>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
-                <div class="text-center">
-                    <button class="pure-box color-spink cursor-pointer" v-if="hasMore" v-on:click="loadMore()">加载更多</button>
+                <div class="text-center mb-5">
+                    <button class="pure-box color-spink cursor-pointer" v-if="hasMore" v-on:click="loadMore()">Load More...</button>
                 </div>
             </div>
         </template>
@@ -98,7 +103,7 @@
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
-        <script src="js/main.js?v=20170602099"></script>
+        <script src="js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!--<script>-->
