@@ -105,13 +105,31 @@
                 <button class="pure-box color-spink cursor-pointer" v-if="hasMore" v-on:click="loadMore()">Load
                     More...</button>
             </div>
-            <footer class="d-flex justify-content-center align-items-center p-r z-10 m-0">
-                <section class="color-spink text-italic">
-                    <div class="text-center mb-2"><em>Zard Songs.</em></div>
-                    <em>感谢 <u><a href="http://tieba.baidu.com/p/300955295" target="_blank"
-                                class="color-spink">rcsking</a></u> 和 <u><a
-                                href="http://www.kiwi-musume.com/lyrics/zard/zard.html" target="_blank"
-                                class="color-spink">kiwi-musume</a></u> 分别提供歌词和图片（链接可能失效）</em>
+            <footer class="py-5 mt-2 text-center">
+                <section class="thanks-section color-spink text-italic mb-5">
+                    <strong class="d-block mb-2">Zard Songs.</strong>
+                    <small>
+                        感谢 <u><a href="http://tieba.baidu.com/p/300955295" target="_blank"
+                                class="color-spink">rcsking</a></u>
+                        和 <u><a href="http://www.kiwi-musume.com/lyrics/zard/zard.html" target="_blank"
+                                class="color-spink">kiwi-musume</a></u>
+                        分别提供歌词和图片（链接可能失效）
+                    </small>
+                </section>
+
+                <div class="footer-divider mx-auto mb-5"></div>
+
+                <section class="disclaimer-section color-spink">
+                    <div class="d-block mb-2">Disclaimer</div>
+                    <div class="disclaimer-text fs-80 text-italic px-3">
+                        <p class="mb-1">This website is a non-commercial fan project created for learning and personal
+                            interest.</p>
+                        <p class="mb-1">If any content infringes your rights, please contact:</p>
+                        <p class="mb-1">
+                            <a href="mailto:haoyellow.dev@gmail.com" class="footer-email">haoyellow.dev@gmail.com</a>
+                        </p>
+                        <p class="mb-0">Content will be removed upon request.</p>
+                    </div>
                 </section>
             </footer>
         </div>

@@ -25,12 +25,14 @@ html {
  */
 
 ::-moz-selection {
-    background: #b3d4fc;
+    background-color: rgba(207, 123, 225, 0.3);
+    color: black;
     text-shadow: none;
 }
 
 ::selection {
-    background: #b3d4fc;
+    background-color: rgba(207, 123, 225, 0.3);
+    color: black;
     text-shadow: none;
 }
 
@@ -177,8 +179,10 @@ textarea {
 
 .clearfix:before,
 .clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */
 }
 
 .clearfix:after {
@@ -200,32 +204,34 @@ textarea {
    ========================================================================== */
 
 @media print {
+
     /* Enable background colors and images for print */
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
     }
-    
+
     /* Page setup */
     @page {
         size: A4;
         margin: 1.5cm;
     }
-    
-    html, body {
+
+    html,
+    body {
         height: auto !important;
         background: white !important;
     }
-    
+
     /* Hide interactive elements */
     input[type="text"],
     audio,
-    button, 
+    button,
     .cursor-pointer {
         display: none !important;
     }
-    
+
     /* Fix header - preserve background image */
     header {
         background: url("../img/zard-01.jpg") no-repeat top right / cover !important;
@@ -234,79 +240,79 @@ textarea {
         height: 62vh;
         margin-bottom: 2em;
     }
-    
+
     /* Preserve card styling */
     #lrcItems .card {
-        background-color: rgba(255,255,255,0.95) !important;
-        border: 1px solid rgba(207,123,225,0.25) !important;
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        border: 1px solid rgba(207, 123, 225, 0.25) !important;
         page-break-inside: avoid;
         margin-bottom: 1.5em;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
     }
-    
+
     #lrcItems .card pre {
-        color: rgba(25,25,25, 0.9) !important;
+        color: rgba(25, 25, 25, 0.9) !important;
         font-size: 0.85em;
         line-height: 1.8em;
         border: none;
     }
-    
+
     #lrcItems .card pre span {
-        box-shadow: 0 1px 0 0 rgba(207,123,225,0.3) !important;
-        border-bottom: 1px solid rgba(207,123,225,0.2) !important;
+        box-shadow: 0 1px 0 0 rgba(207, 123, 225, 0.3) !important;
+        border-bottom: 1px solid rgba(207, 123, 225, 0.2) !important;
         line-height: 2em !important;
     }
-    
+
     /* Prevent breaking song items across pages */
-    #lrcItems > div {
+    #lrcItems>div {
         page-break-inside: avoid;
         page-break-after: auto;
         margin-bottom: 2em;
         max-height: 100vh;
         overflow: hidden;
     }
-    
+
     /* Song titles */
     .song-title {
         page-break-after: avoid;
-        color: rgba(207,123,225,1) !important;
+        color: rgba(207, 123, 225, 1) !important;
     }
-    
+
     /* Welcome message */
     .text-center.mt-5 {
         page-break-after: avoid;
         margin-top: 1em !important;
         margin-bottom: 1em !important;
     }
-    
+
     /* Fix layout - keep 3 columns but ensure they fit */
     #lrc_page {
         padding: 0 !important;
         margin: 0 !important;
     }
-    
+
     #lrcItems {
         padding: 0 !important;
         margin: 0 !important;
     }
-    
+
     /* Keep flexbox layout but ensure proper sizing */
     .d-flex.flex-wrap {
         display: flex !important;
         flex-wrap: wrap !important;
     }
-    
+
     .col-md-4 {
         width: 32% !important;
         max-width: 32% !important;
         margin-right: 2% !important;
         page-break-inside: avoid;
     }
-    
+
     .col-md-4:nth-child(3n) {
         margin-right: 0 !important;
     }
-    
+
     /* Hide play button but keep space */
     .play-music {
         visibility: hidden;
@@ -314,25 +320,26 @@ textarea {
         padding: 0;
         margin: 0;
     }
-    
+
     /* Ensure proper text rendering */
     pre {
         white-space: pre-wrap !important;
         word-wrap: break-word !important;
     }
-    
+
     /* Remove any fixed positioning issues */
     .p-f {
         position: static !important;
     }
-    
+
     /* Ensure links are visible */
     a {
-        color: rgba(207,123,225,1) !important;
+        color: rgba(207, 123, 225, 1) !important;
     }
-    
+
     /* Prevent orphaned lines */
-    p, h5 {
+    p,
+    h5 {
         orphans: 3;
         widows: 3;
     }
@@ -343,50 +350,97 @@ textarea {
 .break-word {
     word-wrap: break-word;
 }
+
 .pre-wrap {
     white-space: pre-wrap;
 }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 #lrcItems .card {
     background-color: transparent;
-    border: 1px solid rgba(207,123,225,0.25);
-    box-shadow: 0 0 18px 0 rgba(0,0,0,0.1);
+    border: 1px solid rgba(207, 123, 225, 0.25);
+    box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.1);
 }
+
 #lrcItems .card pre {
-    font-family: "Noto Sans CJK JP Light", "Noto Sans Mono CJK JP Regular", Arial, fantasy, sans-serif;
+    font-family: inherit;
 }
+
 #lrcItems .card pre span {
     display: block;
     line-height: 3em;
     white-space: nowrap;
-    box-shadow: 0 1px 0 0 rgba(207,123,225,0.25);
+    box-shadow: 0 1px 0 0 rgba(207, 123, 225, 0.25);
 }
+
 #lrcItems .song-title {
-    font-family: "Lato Light", monospace, monospace;
     margin-bottom: 1em;
 }
+
 .color-spink {
-    color: rgba(207,123,225,1);
+    color: rgba(207, 123, 225, 1);
 }
+
+.color-black {
+    color: black;
+}
+
 .bg-spink {
-    background-color: rgba(207,123,225,1);
+    background-color: rgba(207, 123, 225, 1);
 }
+
 .pure-box {
     border: 0;
     outline: none;
     padding-left: 5px;
     background-color: transparent;
 }
+
 .text-italic {
     font-style: italic;
 }
-header, footer {
-    box-shadow: 0 0 12px rgba(207,123,225,0.5);
+
+header,
+footer {
+    box-shadow: 0 0 12px rgba(207, 123, 225, 0.5);
     background: rgba(207, 123, 225, 0.3);
 }
+
 header {
     box-sizing: border-box;
     height: 100vh;
     opacity: 0;
+}
+
+.thanks-section strong {
+    letter-spacing: 1px;
+}
+
+.footer-divider {
+    width: 100px;
+    height: 1px;
+    background-color: rgba(207, 123, 225, 0.3);
+}
+
+.disclaimer-text {
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+.footer-email {
+    color: rgba(207, 123, 225, 1);
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+.footer-email:hover {
+    opacity: 0.7;
+    color: rgba(207, 123, 225, 1);
 }
 
 /* Image fade-in effect when loaded */
@@ -395,22 +449,23 @@ header.header-image-loaded {
     transition: opacity 1.5s ease-in;
     background: rgba(207, 123, 225, 0.3) url("../img/zard-01.jpg") no-repeat fixed top right / cover;
 }
-footer {
-    margin-top: 1em;
-    height: 100px;
-}
+
 .fs-80 {
     font-size: 0.8em;
 }
+
 .p-r {
     position: relative;
 }
+
 .p-a {
     position: absolute;
 }
+
 .p-f {
     position: fixed;
 }
+
 .has-skew:before {
     content: '';
     position: absolute;
@@ -419,38 +474,44 @@ footer {
     right: 0;
     bottom: 0;
     -webkit-transform: skew(-20deg);
-            transform: skew(-20deg);
-    box-shadow: 0 0 16px 0 rgba(207,123,225,0.3);
-    background-color: rgba(207,123,225,0.5);
+    transform: skew(-20deg);
+    box-shadow: 0 0 16px 0 rgba(207, 123, 225, 0.3);
+    background-color: rgba(207, 123, 225, 0.5);
     z-index: -1;
     border-radius: 3px;
 }
+
 .cursor-pointer {
     cursor: pointer;
 }
+
 .play-music:hover:before {
-    background-color: rgba(207,123,225,1);
+    background-color: rgba(207, 123, 225, 1);
 }
 
 .play-music.disabled {
     opacity: 0.25;
     cursor: not-allowed;
 }
+
 .play-music.disabled:hover:before {
-    background-color: rgba(207,123,225,0.5);
+    background-color: rgba(207, 123, 225, 0.5);
 }
 
 .tr {
     top: 0;
     right: 0;
 }
+
 .tl {
     top: 0;
     left: 0;
 }
+
 .z-10 {
     z-index: 10;
 }
+
 #lrc_page {
     min-height: 100%;
 }
