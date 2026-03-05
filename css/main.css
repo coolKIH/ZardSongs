@@ -385,7 +385,6 @@ header, footer {
 }
 header {
     box-sizing: border-box;
-    background: url("../img/zard-01.jpg") no-repeat fixed top right / cover;
     height: 100vh;
     opacity: 0;
 }
@@ -394,6 +393,7 @@ header {
 header.header-image-loaded {
     opacity: 1;
     transition: opacity 1.5s ease-in;
+    background: rgba(207, 123, 225, 0.3) url("../img/zard-01.jpg") no-repeat fixed top right / cover;
 }
 footer {
     margin-top: 1em;

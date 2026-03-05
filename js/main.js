@@ -48,8 +48,7 @@
             window.addEventListener('scroll', checkScroll);
 
             // Detect when header background image is loaded
-            var img = new Image();
-            img.onload = function () {
+            var onImageFinishLoading = function () {
                 // Image loaded, trigger fade-in effect
                 self.headerImageLoaded = true;
 
@@ -70,7 +69,10 @@
                     }
                 }, 2500);
             };
-            img.src = '../img/zard-01.jpg';
+            var img = new Image();
+            img.onload = onImageFinishLoading;
+            img.onerror = onImageFinishLoading;
+            img.src = './img/zard-01.jpg';
         },
         methods: {
             fetchLrcData: function (filename) {
