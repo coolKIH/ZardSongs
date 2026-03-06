@@ -43,21 +43,20 @@
     </div>
 
     <template id="lrc-covers">
-        <div class="p-r" id="lrc_page">
-            <header class="d-flex flex-wrap justify-content-between p-r align-items-start"
-                v-bind:class="{ 'header-image-loaded': headerImageLoaded }">
-                <input v-model="searchKey" type="text" name="search" title="搜索歌名" placeholder="Search song title..."
-                    class="p-f tl z-10 col-md-2 pure-box color-spink fs-80 mt-1">
+        <div class="p-r" id="lrc_page" v-bind:class="{ 'header-image-loaded': headerImageLoaded }">
+            <header class="d-flex flex-wrap justify-content-between p-r align-items-start">
+            </header>
+            <div class="toolbar">
                 <audio ref="musicPlayer" v-bind:src="songLink" style="display: none;">
                     Your browser does not support the <code>audio</code> element.
                 </audio>
-                <div class="p-f tr fs-80 me-2 mt-1 z-10" v-if="playingMusic">
-                    &#9834; <span>{{playStatus}}</span>
-                    <span class="color-spink text-uppercase mx-1">{{songTitle}}</span>
-                    <span class="cursor-pointer" title="Stop Music" v-on:click="stopMusic()">⏹</span>
+                <div class="now-playing" v-if="playingMusic">
+                    <span class="music-note">♪</span> <span>{{playStatus}}</span>
+                    <span class="color-spink text-uppercase mx-1 title">{{songTitle}}</span>
+                    <span class="stop-btn cursor-pointer" title="Stop Music" v-on:click="stopMusic()"></span>
                 </div>
-            </header>
-            <div id="welcomeMessage" class="text-center mt-5 mb-5 pb-2">
+            </div>
+            <div ref="welcomeMessage" class="text-center mt-5 mb-5 pb-2">
                 <div class="color-spink d-inline-block p-2">
                     <div class="text-start">『</div>
                     <div class="px-4 py-2 fs-80 lh-lg" style="letter-spacing: 3px;">欢迎来到Zard的演唱会!<br>请大家尽兴到最后～</div>
@@ -65,10 +64,14 @@
                 </div>
                 <p class="color-spink fs-80 mb-0 mt-3" style="letter-spacing: 3px;">...</p>
             </div>
+            <div class="d-flex justify-content-center my-5">
+                <input v-model="searchKey" type="text" name="search" title="搜索歌名" placeholder="Search Song Title..."
+                    class="search-box" autocomplete="off">
+            </div>
             <section id="lrcItems">
                 <div class="d-flex flex-wrap mt-4 mb-5" v-for="item in displayItems">
                     <h5 class="text-center col-12 text-uppercase break-word song-title color-spink">
-                        <strong class="play-music has-skew p-r text-white ps-1 pe-1 me-1 cursor-pointer"
+                        <strong class="play-music has-skew p-r text-white px-2 me-1 cursor-pointer"
                             v-bind:class="{ 'disabled': !item.song_link }"
                             v-bind:title="item.song_link ? 'Click to play' : 'Not available to play yet'"
                             v-on:click="playMusic(item.title, item.song_link)">&#9834;</strong>
@@ -97,7 +100,7 @@
                     </div>
                 </div>
             </section>
-            <div class="text-center my-5 text-italic" v-if="displayItems.length === 0 && searchKey">
+            <div class="text-center my-5 py-5 text-italic opacity-75" v-if="displayItems.length === 0 && searchKey">
                 <div class="pb-2">未找到歌名中包含 "{{searchKey}}" 的曲目。</div>
                 <div>请尝试其他关键词搜索。</div>
             </div>
@@ -105,7 +108,7 @@
                 <button class="pure-box color-spink cursor-pointer" v-if="hasMore" v-on:click="loadMore()">Load
                     More...</button>
             </div>
-            <footer class="py-5 mt-2 text-center">
+            <footer class="py-5 px-3 mt-2 text-center">
                 <section class="thanks-section color-spink text-italic mb-5">
                     <strong class="d-block mb-2">Zard Songs.</strong>
                     <small>

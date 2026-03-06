@@ -60,13 +60,10 @@
 
                     window.removeEventListener('scroll', checkScroll);
 
-                    var welcomeMsg = document.getElementById('welcomeMessage');
-                    if (welcomeMsg) {
-                        welcomeMsg.scrollIntoView({
+                    self.$refs.welcomeMessage.scrollIntoView({
                             behavior: 'smooth',
                             block: 'end'
                         });
-                    }
                 }, 2500);
             };
             var img = new Image();
