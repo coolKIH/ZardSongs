@@ -10,7 +10,7 @@
                 songTitle: '',
                 songLink: '',
                 playStatus: 'Loading...',
-                loadedDataHandler: null,
+                playingHandler: null,
                 endedHandler: null,
                 errorHandler: null,
                 headerImageLoaded: false
@@ -104,8 +104,8 @@
                 mp.pause();
 
                 // Remove old event listeners if they exist
-                if (this.loadedDataHandler) {
-                    mp.removeEventListener('loadeddata', this.loadedDataHandler);
+                if (this.playingHandler) {
+                    mp.removeEventListener('playing', this.playingHandler);
                 }
                 if (this.endedHandler) {
                     mp.removeEventListener('ended', this.endedHandler);
@@ -119,7 +119,7 @@
                 this.songTitle = songTitle;
 
                 // Create new event handlers and store references
-                this.loadedDataHandler = function () {
+                this.playingHandler = function () {
                     me.playStatus = 'Enjoying...'
                 };
                 this.endedHandler = function () {
@@ -130,7 +130,7 @@
                 };
 
                 // Add event listeners
-                mp.addEventListener('loadeddata', this.loadedDataHandler);
+                mp.addEventListener('playing', this.playingHandler);
                 mp.addEventListener('ended', this.endedHandler);
                 mp.addEventListener('error', this.errorHandler);
 
