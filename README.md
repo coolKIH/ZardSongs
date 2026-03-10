@@ -25,7 +25,7 @@ To run the website locally and explore the source code:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/coolKIH/ZardSongs.git](https://github.com/coolKIH/ZardSongs.git)
+   git clone https://github.com/coolKIH/ZardSongs.git
    ```
 
 2. **Launch the development server:**
