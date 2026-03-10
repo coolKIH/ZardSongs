@@ -9,9 +9,10 @@
                 playingMusic: false,
                 songTitle: '',
                 songLink: '',
-                playStatus: 'Loading..',
+                playStatus: 'Loading...',
                 loadedDataHandler: null,
                 endedHandler: null,
+                errorHandler: null,
                 headerImageLoaded: false
             }
         },
@@ -61,9 +62,9 @@
                     window.removeEventListener('scroll', checkScroll);
 
                     self.$refs.welcomeMessage.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'end'
-                        });
+                        behavior: 'smooth',
+                        block: 'end'
+                    });
                 }, 2500);
             };
             var img = new Image();
@@ -98,7 +99,7 @@
                     return;
                 }
                 var me = this;
-                this.playStatus = 'Loading..';
+                this.playStatus = 'Loading...';
                 var mp = this.$refs.musicPlayer;
                 mp.pause();
 
@@ -109,6 +110,9 @@
                 if (this.endedHandler) {
                     mp.removeEventListener('ended', this.endedHandler);
                 }
+                if (this.errorHandler) {
+                    mp.removeEventListener('error', this.errorHandler);
+                }
 
                 mp.src = songLink;
                 this.playingMusic = true;
@@ -116,15 +120,19 @@
 
                 // Create new event handlers and store references
                 this.loadedDataHandler = function () {
-                    me.playStatus = 'Enjoying..'
+                    me.playStatus = 'Enjoying...'
                 };
                 this.endedHandler = function () {
                     me.playingMusic = false;
+                };
+                this.errorHandler = function () {
+                    me.playStatus = '(ERROR Loading)';
                 };
 
                 // Add event listeners
                 mp.addEventListener('loadeddata', this.loadedDataHandler);
                 mp.addEventListener('ended', this.endedHandler);
+                mp.addEventListener('error', this.errorHandler);
 
                 mp.load();
                 mp.play();
